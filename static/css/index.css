@@ -1,0 +1,47 @@
+html,
+body {
+    background-image: url("/static/img/abc.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: "Numans", sans-serif;
+}
+
+.container {
+    height: 100%;
+    align-content: center;
+}
+
+.card {
+    height: 300px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.card-header h3 {
+    color: white;
+    margin-left: 130px;
+}
+
+.input-group-prepend span {
+    width: 50px;
+    background-color: #50c2ca;
+    color: black;
+    border-radius: 15px;
+    border-color: red;
+}
+
+.login_btn {
+    color: black;
+    background-color: #ffc312;
+    width: 100px;
+    margin-left: 130px;
+}
+
+.login_btn:hover {
+    color: rgba(0, 0, 0, 0.5);
+    background-color: white;
+}

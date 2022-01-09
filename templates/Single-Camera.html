@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% load static %} {% block page_title %}Single Camera{% endblock %} {% block css_files%}
+<link rel="stylesheet" href="{% static 'css/Single-Camera.css' %}"> {% endblock %} {% block content%}
+<section class="container-fluid" style="background-image: url('/static/img/camerabk.jpg');">
+    <div class="row">
+        <div class="col-12">
+            <h1 style="color: rgb(245, 234, 236);">Single Camera Details</h1>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <br>
+            <br>
+            <h3 style="color: silver;">Camera 5</h3>
+            <center>
+                <video class="video">
+                        <source src="{%static 'img/video.mkv'%}">
+
+                    </video>
+            </center>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mark</td>
+                        <td>10/3/21</td>
+                        <td>10:30:20 A.M </td>
+                        <td>IN</td>
+                    </tr>
+                    <tr>
+                        <td>Smith</td>
+                        <td>10/3/21</td>
+                        <td>10:40:20 A.M </td>
+                        <td>IN</td>
+                    </tr>
+                    <tr>
+                        <td>David</td>
+                        <td>10/3/21</td>
+                        <td>10:30:20 A.M </td>
+                        <td>IN</td>
+                    </tr>
+                    <tr>
+                        <td>Backem</td>
+                        <td>10/3/21</td>
+                        <td>10:33:20 A.M </td>
+                        <td>IN</td>
+                    </tr>
+                    <tr>
+                        <td>Roni</td>
+                        <td>10/3/21</td>
+                        <td>10:10:20 A.M </td>
+                        <td>IN</td>
+                    </tr>
+                    <tr>
+                        <td>Miller</td>
+                        <td>10/3/21</td>
+                        <td>10:05:20 A.M </td>
+                        <td>IN</td>
+                    </tr>
+                    <tr>
+                        <td>Alex</td>
+                        <td>10/3/21</td>
+                        <td>05:30:20 P.M </td>
+                        <td>Out</td>
+                    </tr>
+                    <tr>
+                        <td>Backem</td>
+                        <td>10/3/21</td>
+                        <td>04:30:20 P.M </td>
+                        <td>Out</td>
+                    </tr>
+                    <tr>
+                        <td>Mark</td>
+                        <td>10/3/21</td>
+                        <td>01:30:20 P.M </td>
+                        <td>Out</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</section>
+{% endblock %}
