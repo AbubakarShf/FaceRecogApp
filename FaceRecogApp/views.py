@@ -7,7 +7,7 @@ from rest_framework import status
 from .models import User
 from django.shortcuts import render, redirect
 from rest_framework.exceptions import AuthenticationFailed
-
+from django.urls import reverse
 # Create your views here.
 class Register(APIView):
     RegisterSerializer_Class=RegisterSerializer
@@ -37,8 +37,8 @@ class Login(APIView):
 
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
-
-        response=render(request,'camera-form.html')
+        response=redirect(reverse("CameraFormPage"))
+        # response=render(request,'camera-form.html')
         return response
 class CameraDetail(APIView):
     def get(self,request):

@@ -8,19 +8,21 @@
                 <h3>Sign In</h3>
             </div>
             <div class="card-body">
-                <form>
+                <form action="/login" method="POST">
+                    {% csrf_token %}
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Username">
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+
 
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Login" class="btn justify-content-center login_btn">
@@ -30,6 +32,7 @@
                     <div class="d-flex justify-content-center links">
                         Register Now!
                         <a href="{% url 'RegisterPage' %}" class="ml-2">Register</a>
+
                     </div>
                 </div>
             </div>
