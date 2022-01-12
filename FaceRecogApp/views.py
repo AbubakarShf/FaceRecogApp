@@ -8,47 +8,49 @@ from .models import User
 from django.shortcuts import render, redirect
 from rest_framework.exceptions import AuthenticationFailed
 from django.urls import reverse
-# Create your views here.
-class Register(APIView):
-    RegisterSerializer_Class=RegisterSerializer
-    def get(self,request):
-        return render(request, 'register.html')
-    def post(self,request,format=None):
-        serializer=self.RegisterSerializer_Class(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            msg={
-                'msg':"Registered Successfully"
-            }
-            return render(request, 'index.html',msg)
-        else:
-            return Response({"Message":serializer.errors,"status":status.HTTP_400_BAD_REQUEST})
-class Login(APIView):
-    def get(self,request):
-        return render(request, 'index.html')
+# from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
-    def post(self,request,format=None):
+from django.contrib import messages
+# Create your views here.
+
+
+def login_user(request):
+    if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = User.objects.filter(email=email).first()
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'camera-form.html')
+        else:
+            messages.success(request, "Email or Password is wrong, Try Again!")
+            return render(request, 'index.html', {{messages}})
+    else:
+        return render(request, 'index.html')
 
-        if user is None:
-            raise AuthenticationFailed('User not found!')
 
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
-        response=redirect(reverse("CameraFormPage"))
-        # response=render(request,'camera-form.html')
-        return response
-class CameraDetail(APIView):
-    def get(self,request):
-        return render(request,'Camera-Detail.html')
-class CameraForm(APIView):
-    def get(self,request):
-        return render(request,'camera-form.html')
-class SingleCamera(APIView):
-    def get(self,request):
-        return render(request,'Single-Camera.html')
-class Logout(APIView):
-    def get(self,request):
-        pass
+def register_user(request):
+    return render(request, "register.html")
+
+
+@login_required(login_url='HomePage')
+def CameraDetail(request):
+    return render(request, 'Camera-Detail.html')
+
+
+@login_required(login_url='HomePage')
+def CameraForm(request):
+    return render(request, 'camera-form.html')
+
+
+@login_required(login_url='HomePage')
+def SingleCamera(request):
+    return render(request, 'Single-Camera.html')
+
+
+@login_required(login_url='HomePage')
+def Logout(request):
+    logout(request)
+    return redirect(reverse("HomePage"))

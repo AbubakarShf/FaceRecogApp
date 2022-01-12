@@ -1,14 +1,12 @@
 from django.urls import path
-from .views import Login,Register,Logout,CameraDetail,CameraForm,SingleCamera
-
-
+from . import views
 urlpatterns = [
-    path('',Login.as_view(),name="HomePage"),
-    path('login',Login.as_view(),name="LoginPage"),
-    path('register',Register.as_view(),name="RegisterPage"),
-    path('logout',Logout.as_view(),name="LogoutPage"),
-    path('details',CameraDetail.as_view(),name="CameraDetailPage"),
-    path('form',CameraForm.as_view(),name="CameraFormPage"),
-    path('camera',SingleCamera.as_view(),name="SingleCameraPage")
+    path('', views.login_user, name="HomePage"),
+    path('login', views.login_user, name="LoginPage"),
+    path('register', views.register_user, name="RegisterPage"),
+    path('logout', views.Logout, name="LogoutPage"),
+    path('details', views.CameraDetail, name="CameraDetailPage"),
+    path('form', views.CameraForm, name="CameraFormPage"),
+    path('camera', views.SingleCamera, name="SingleCameraPage")
 
 ]
