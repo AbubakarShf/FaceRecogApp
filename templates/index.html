@@ -1,6 +1,5 @@
-{% extends "base.html" %} {% load static %} {% block page_title %}Login{% endblock %} {% block css_files%}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> {% endblock %} {% block content%}
+{% extends "base.html" %} {% load static %} {% block page_title %}Login{% endblock %} {% block css_files %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}"> {% endblock %} {% block content%}
 <section>
     {% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}
     <div class="d-flex justify-content-center h-100">

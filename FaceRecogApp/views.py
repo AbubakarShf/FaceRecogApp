@@ -23,7 +23,7 @@ def login_user(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'camera-form.html')
+            return redirect(reverse("CameraFormPage"))
         else:
             messages.success(request, "Email or Password is wrong, Try Again!")
             return render(request, 'index.html', {{messages}})
