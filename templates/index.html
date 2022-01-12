@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% load static %} {% block page_title %}Login{% endblock %} {% block css_files %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}"> {% endblock %} {% block content%}
+<link rel="stylesheet" href="{% static 'css/index.css'%}" /> {% endblock %} {% block content%}
 <section>
     {% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}
     <div class="d-flex justify-content-center h-100">
