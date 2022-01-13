@@ -1,12 +1,14 @@
-.container-fluid{
+.container-fluid {
     background-size: cover;
-    height: 100vh;
+    /* height: 100vh; */
 }
-.video{
+
+.video {
     height: inherit;
     width: 500px;
 }
-.table{
+
+.table {
     width: 500px;
     background-color: rgb(107, 98, 98);
     margin-left: auto;

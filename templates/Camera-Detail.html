@@ -1,6 +1,25 @@
 {% extends "base.html" %} {% load static %} {% block page_title %}Camera Details{% endblock %} {% block css_files %}
-<link rel="stylesheet" href="{% static 'css/camera-detail.css' %}"> {% endblock %} {% block content%}
+<link rel="stylesheet" href="{% static 'css/camera-detail.css' %}"> {% endblock %} {% block content%} {% if user.is_authenticated %}
 
+<nav style="background-color: black !important;" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div style="background-color: black;" class="container-fluid">
+        <a style="font-size: 2em !important;" class="navbar-brand" href="#">FaceRecog</a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+        <div style="justify-content: flex-end;" class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a style="font-size: 1.6em !important; margin-left:10px; margin-right:30px;" class="nav-link active" aria-current="page" href="{% url 'CameraFormPage' %}">Home</a>
+                <a href="{% url 'LogoutPage' %}">
+                    <button style="background-color:yellow; font-size:1.2em;margin-top:5px;" class="btn login_btn">Logout</button>
+
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% else %} {% endif %}
 <section class="container-fluid" style="background-image: url('/static/img/camera-tbl1.jpg');">
     <div class="row">
         <div class="col-12" style="color: rgb(79, 206, 238);">
