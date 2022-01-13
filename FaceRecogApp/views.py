@@ -22,22 +22,22 @@ def login_user(request):
             login(request, user)
             return redirect(reverse("CameraFormPage"))
         else:
-            messages.success(
+            messages.error(
                 request, ("Email or Password is wrong, Try Again!"))
-            return render(request, 'index.html', {})
+            return render(request, 'index.html')
     else:
         return render(request, 'index.html')
 
 
 def register_user(request):
     if request.method == "POST":
-        username = request.POST["username"]
         email = request.POST["email"]
-
-        # Ensure password matches confirmation
+        username = request.POST["username"]
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
+        # Ensure password matches confirmation
         if password != confirmation:
+            messages.error(request, 'Password must match!')
             return render(request, "register.html", {
                 "message": "Passwords must match."
             })
@@ -47,6 +47,7 @@ def register_user(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
+            messages.info(request, 'Username already taken.')
             return render(request, "register.html", {
                 "message": "Username already taken."
             })
