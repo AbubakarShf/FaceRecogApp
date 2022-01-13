@@ -75,4 +75,7 @@ def SingleCamera(request):
 @login_required(login_url='HomePage')
 def Logout(request):
     logout(request)
+    request.session.flush()
+    request.session.clear_expired()
+
     return redirect(reverse("HomePage"))
