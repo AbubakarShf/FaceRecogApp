@@ -1,18 +1,18 @@
 .container-fluid {
     background-color: rgb(36, 50, 51);
-
 }
-.video{
+
+.video {
     margin-left: 10px;
 }
+
 .fit-picture {
     width: 100%;
     margin-bottom: 10px;
     border-radius: 5px;
 }
-.btn{
+
+.btn {
     background-color: rgb(230, 217, 45);
-    border-radius: 10px;
-    border-width: 4px;
-    border-color: red;
+    border-radius: 5px;
 }
