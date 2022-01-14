@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'FaceRecogProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Face_Recog',
+        'NAME': 'face',
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'thejungle',
+        'PASSWORD': '',
     }
 }
 
