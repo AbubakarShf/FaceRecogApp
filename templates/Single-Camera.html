@@ -28,10 +28,7 @@
             <br>
             <br>
             <center>
-                <video class="video">
-                        <source src="{%static 'img/video.mkv'%}">
-
-                    </video>
+                <img class="video" src="{% url 'live' %}?link={{link}}" alt="">
             </center>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
