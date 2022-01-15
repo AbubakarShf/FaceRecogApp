@@ -17,6 +17,22 @@ host="localhost"
 user="root"
 password=""
 database="face"
+def get_userdata():
+    mydb = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=database
+    )
+    cursor = mydb.cursor(dictionary=True)
+    data=[]
+    cursor.execute("select * from userdata;")
+    rows=cursor.fetchall()
+    if rows != None:
+        for row in rows:
+            data.append(row)
+    mydb.commit()
+    return data
 def get_cameras():
     mydb = mysql.connector.connect(
     host=host,
@@ -33,6 +49,19 @@ def get_cameras():
             data.append(row)
     mydb.commit()
     return data
+
+def updateUserInDB(id,name):
+    mydb = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=database
+    )
+    
+    mycursor = mydb.cursor()
+    q="Update userdata set name='"+ name +"' , status=1 where id='"+id+"'"
+    mycursor.execute(q)
+    mydb.commit()
 
 def insert_into_db(obj):
     mydb = mysql.connector.connect(
@@ -138,7 +167,7 @@ def fromFrame(frame):
                 status,name,index=checkAlreadyInDataset(encodings[i])
                 if(status):
                     # name partially known
-                    personName=' '
+                    personName=name
                 # not present in dataset
                 else:
                     # add to dataset
@@ -146,13 +175,11 @@ def fromFrame(frame):
                     final = Image.fromarray(faceImage)
                     en=np.array(encodings[i])
                     # conn = sqlite3.connect('example.db')
-
                     row={'name':'unknown','encoding':cPickle.dumps([en]),'status':False,'id':str(int(time.time()))+str(random.randint(0,10000))}
                     picName="img%s.png" % (str(row['id']))
                     task=(row['id'],row['name'],row['encoding'],row['status'],picName)
-                    insert_into_db(task)
-                    final.save('images/'+picName, "PNG")
-                    
+                    insert_into_db(task) 
+                    cv2.imwrite("static/images/"+picName,faceImage)                    
 
 
             p1,p2=(lefth,topx),(righty,bottomw)
@@ -173,8 +200,6 @@ class VideoCamera(object):
 
     def get_frame(self):
         image = self.frame
-        # totalFaces,image=fromFrame(image)
-        # cv2.putText(image,"Total: "+str(totalFaces),(50,50),cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,255),1)
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
 

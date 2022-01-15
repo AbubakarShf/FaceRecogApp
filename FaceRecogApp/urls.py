@@ -9,6 +9,8 @@ urlpatterns = [
     path('form', views.CameraForm, name="CameraFormPage"),
     path('camera', views.SingleCamera, name="SingleCameraPage"),
     path('live', views.Detection, name="live"),
-    path('weblive', views.LiveCamera, name="weblive")
+    path('weblive', views.LiveCamera, name="weblive"),
+    path('label', views.label, name="label"),
+    path('updateUser', views.updateUser, name="update"),
 
 ]

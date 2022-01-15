@@ -1,7 +1,6 @@
 from cgitb import reset
 import sqlite3
 from django.shortcuts import render
-
 from .models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -10,9 +9,18 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from FaceRecogApp.camera import VideoCamera,LiveWebCam, get_cameras
+from FaceRecogApp.camera import VideoCamera,LiveWebCam, get_cameras, get_userdata, updateUserInDB
+
 # Create your views here.
 GLOBAL_CURSOR=None
+
+def label(request):
+    data=get_userdata()
+    if request.method =="GET":
+        return render(request,'label.html',context={'users':data})
+    else:
+        return render(request,'label.html',context={'users':data})
+
 
 def login_user(request):
     if request.method == "POST":
@@ -30,6 +38,12 @@ def login_user(request):
             return render(request, 'index.html')
     else:
         return render(request, 'index.html')
+
+def updateUser(request):
+    id=request.GET.get('id')
+    name=request.GET.get('name')
+    updateUserInDB(id,name)
+    return HttpResponseRedirect(reverse("label"))
 
 
 def register_user(request):
