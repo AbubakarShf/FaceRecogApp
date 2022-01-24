@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from FaceRecogApp.camera import VideoCamera,LiveWebCam, get_cameras, get_userdata, updateUserInDB
+from FaceRecogApp.camera import getAttendance,VideoCamera,LiveWebCam, get_cameras, get_userdata, updateUserInDB
 
 # Create your views here.
 GLOBAL_CURSOR=None
@@ -88,7 +88,9 @@ def CameraForm(request):
 @login_required(login_url='HomePage')
 def SingleCamera(request):
     link=request.GET.get('link')
-    return render(request, 'Single-Camera.html',context={'link':link})
+    id=request.GET.get('id')
+    attendance=getAttendance(id)
+    return render(request, 'Single-Camera.html',context={'link':link,'id':id,'attendance':attendance})
 
 
 @login_required(login_url='HomePage')
@@ -113,11 +115,13 @@ from django.http import StreamingHttpResponse
 def Detection(request):
     try:
         link=request.GET.get('link')
+        id=request.GET.get('id')
+
         if(link=='0'):
             cam = VideoCamera()
         else:
             cam=LiveWebCam(link)
-        return StreamingHttpResponse(getRecognizedVideo(cam), content_type="multipart/x-mixed-replace;boundary=frame")
+        return StreamingHttpResponse(getRecognizedVideo(cam,id), content_type="multipart/x-mixed-replace;boundary=frame")
     except:
         pass
     return render(request, 'app1.html')
@@ -140,9 +144,9 @@ def getVideo(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-def getRecognizedVideo(camera):
+def getRecognizedVideo(camera,cid):
     while True:
-        frame = camera.get_recognized_frame()
+        frame = camera.get_recognized_frame(cid)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 

@@ -74,6 +74,17 @@ def insert_into_db(obj):
     mycursor.execute("INSERT into userdata values (%s, %s, %s,%s,%s)",obj)
     mydb.commit()
 
+def markAttendence(obj):
+    mydb = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=database
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("INSERT into attendance(uid,cam_id) values (%s,%s)",obj)
+    mydb.commit()
+
 
 def update_in_db(cursor, obj):
     cursor.execute(update_string,obj)
@@ -93,6 +104,24 @@ def knownUsers():
         for row in rows:
             data.append(row)
     mydb.commit()
+    return data
+    
+def getAttendance(cid):
+    mydb = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=database
+    )
+    cursor = mydb.cursor(dictionary=True)
+    data=[]
+    cursor.execute("CALL getAttendance("+cid+")")
+    rows=cursor.fetchall()
+    if rows != None:
+        for row in rows:
+            data.append(row)
+    cursor.close()
+    # mydb.commit()
     return data
 
 def unknownUsers():
@@ -118,12 +147,12 @@ def checkKnownFace(encoding):
         if(len(rows)>0):
             for row in rows:
                 en=cPickle.loads(row[1])[0]
-                if face_recognition.compare_faces([encoding],np.array(en),0.6)[0]:
-                    return True,row[2]
-        return False,'unknown'
+                if face_recognition.compare_faces([encoding],np.array(en),0.4)[0]:
+                    return True,row[2],row[0]
+        return False,'unknown',None
     except Exception as e:
         print(e)
-        return False,'unknown'
+        return False,'unknown',None
 
 def checkAlreadyInDataset(encoding):
     try:
@@ -131,7 +160,7 @@ def checkAlreadyInDataset(encoding):
         if(len(rows)>0):
             for  row in rows:
                 en=cPickle.loads(row[1])[0]
-                if face_recognition.compare_faces([encoding],np.array(en),0.5)[0]:
+                if face_recognition.compare_faces([encoding],np.array(en),0.4)[0]:
                     return True,'Partially Known',row[0]
         return False,'unknown',None
     except Exception as e:
@@ -143,7 +172,7 @@ macURL='face_Recognition/data.csv'
 winURL='data.csv'
 
 import random
-def fromFrame(frame):
+def fromFrame(frame,cid):
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     loc = face_recognition.face_locations(rgb)
     encodings=face_recognition.face_encodings(rgb,model="hog")
@@ -156,18 +185,20 @@ def fromFrame(frame):
         # if any face
         if(totalFaces>0):
         #   if face is know
-            status,name=checkKnownFace(encodings[i])
+            status,name,uid=checkKnownFace(encodings[i])
             if(status):
                 # get name of face from dataset
                 personName=name
+                markAttendence((uid,cid))
         #   face not known
             else:
 
                 # if already added in dataset
-                status,name,index=checkAlreadyInDataset(encodings[i])
+                status,name,uid=checkAlreadyInDataset(encodings[i])
                 if(status):
                     # name partially known
                     personName=name
+                    markAttendence((uid,cid))
                 # not present in dataset
                 else:
                     # add to dataset
@@ -179,7 +210,8 @@ def fromFrame(frame):
                     picName="img%s.png" % (str(row['id']))
                     task=(row['id'],row['name'],row['encoding'],row['status'],picName)
                     insert_into_db(task) 
-                    cv2.imwrite("static/images/"+picName,faceImage)                    
+                    markAttendence((row['id'],cid))
+                    cv2.imwrite("static/images/"+picName,faceImage)      
 
 
             p1,p2=(lefth,topx),(righty,bottomw)
@@ -203,9 +235,9 @@ class VideoCamera(object):
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
 
-    def get_recognized_frame(self):
+    def get_recognized_frame(self,cid):
         image = self.frame
-        totalFaces,image=fromFrame(image)
+        totalFaces,image=fromFrame(image,cid)
         cv2.putText(image,"Total: "+str(totalFaces),(50,50),cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,255),1)
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
@@ -227,9 +259,9 @@ class LiveWebCam(object):
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
 
-    def get_recognized_frame(self):
+    def get_recognized_frame(self,cid):
         image = self.frame
-        totalFaces,image=fromFrame(image)
+        totalFaces,image=fromFrame(image,cid)
         cv2.putText(image,"Total: "+str(totalFaces),(50,50),cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,255),1)
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()

@@ -25,18 +25,13 @@
  </style>
 {% else %} {% endif %}
 <section class="container-fluid" style="text-align: center;">
-   <!-- <div class="row">
-      <div class="col-12">
-          <h1 style="color: snow; text-align: center; background-color: rgb(0, 0, 0);">Cameras Screen</h1>
-      </div>
-      </div> -->
       <div class="row">
 {% for camera in cameras %}
 {% if camera.status %}
 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
     <figure>
    <img class="video" src="{% url 'weblive' %}?link={{ camera.main }}" alt="">
-       <a href="{% url 'SingleCameraPage' %}?link={{ camera.main }}" class="ml-2" style="text-decoration: none;">
+       <a href="{% url 'SingleCameraPage' %}?link={{ camera.main }}&id={{camera.id}}" class="ml-2" style="text-decoration: none;">
           <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
             {{ camera.name }}
           </figcaption>
@@ -45,190 +40,7 @@
  </div>
   {% endif %}  
 {% endfor %}
-   <!-- <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-        <img class="video" src="{% url 'weblive' %}?link=123" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 1
-               </figcaption>
-            </a>
-         </figure>
-      </div> -->
-      <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 2
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 3
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 4
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 5
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 6
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 7
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 8
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 9
-               </figcaption>
-            </a>
-         </figure>
-      </div> -->
 
-      <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-            <img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 10
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 11
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 12
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 13
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-         <video style="height: 200px; width: 300px;">
-            <source src="{%static 'img/video.mkv'%}">
-         </video>
-         <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-            <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-               Camera 14
-            </figcaption>
-         </a>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 15
-               </figcaption>
-            </a>
-         </figure>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-         <figure>
-<img class="video" src="{% url 'live' %}" alt="">
-            <a href="{% url 'SingleCameraPage' %}" class="ml-2" style="text-decoration: none;">
-               <figcaption style="font-size: 25px; color: ivory; background-color: rgb(0, 0, 0); border-radius: 10px;">
-                  Camera 16
-               </figcaption>
-            </a>
-         </figure>
-      </div> -->
-      <!-- <div class="col-4">
-         <div class="row">
-             <div class="col-8">
-                 <button type="button" class="btn"><img src="{%static 'img/download.png'%}"> <b>Download</b></button>
-             </div>
-         </div>
-         </div>
-         <div class="col-4">
-         <div class="row">
-             <div class="col-8">
-                 <button type="button" class="btn"><img src="{%static '/img/grid.png'%}"> <b>Live Grid</b></button>
-             </div>
-         </div>
-         </div>
-         <div class="col-4">
-         <div class="row">
-             <div class="col-8">
-                 <button type="button" class="btn"><img src="{%static '/img/face.png'%}"> <b>Name Face</b> </button>
-             </div>
-         </div>
-         </div> -->
    </div>
 </section>
 </div>

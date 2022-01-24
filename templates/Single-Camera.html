@@ -28,7 +28,7 @@
             <br>
             <br>
             <center>
-                <img class="video" src="{% url 'live' %}?link={{link}}" alt="">
+                <img class="video" src="{% url 'live' %}?link={{link}}&id={{id}}" alt="">
             </center>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
@@ -36,66 +36,18 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">DateTime</th>
                         <th scope="col">Position</th>
                     </tr>
                 </thead>
                 <tbody>
+              {% for at in attendance %}
                     <tr>
-                        <td>Mark</td>
-                        <td>10/3/21</td>
-                        <td>10:30:20 A.M </td>
-                        <td>IN</td>
+                        <td>{{ at.name }}</td>
+                        <td>{{ at.time }}</td>
+                        <td>{{ at.type }}</td>
                     </tr>
-                    <tr>
-                        <td>Smith</td>
-                        <td>10/3/21</td>
-                        <td>10:40:20 A.M </td>
-                        <td>IN</td>
-                    </tr>
-                    <tr>
-                        <td>David</td>
-                        <td>10/3/21</td>
-                        <td>10:30:20 A.M </td>
-                        <td>IN</td>
-                    </tr>
-                    <tr>
-                        <td>Backem</td>
-                        <td>10/3/21</td>
-                        <td>10:33:20 A.M </td>
-                        <td>IN</td>
-                    </tr>
-                    <tr>
-                        <td>Roni</td>
-                        <td>10/3/21</td>
-                        <td>10:10:20 A.M </td>
-                        <td>IN</td>
-                    </tr>
-                    <tr>
-                        <td>Miller</td>
-                        <td>10/3/21</td>
-                        <td>10:05:20 A.M </td>
-                        <td>IN</td>
-                    </tr>
-                    <tr>
-                        <td>Alex</td>
-                        <td>10/3/21</td>
-                        <td>05:30:20 P.M </td>
-                        <td>Out</td>
-                    </tr>
-                    <tr>
-                        <td>Backem</td>
-                        <td>10/3/21</td>
-                        <td>04:30:20 P.M </td>
-                        <td>Out</td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>10/3/21</td>
-                        <td>01:30:20 P.M </td>
-                        <td>Out</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
